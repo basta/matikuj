@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Plot</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/function-plot/dist/function-plot.js"></script>
+
+<p>Vzoreček: <span id="formula" /></p>
+<div id="plot" />
+
+<script>
+const latexToPlotFormula = latex => (latex
+  .replaceAll(/\\cdot\b/g, '*')
+  .replaceAll(/(\d)\s*(\p{L})/gu, (_, number, letter) => `${number}*${letter}`)
+  .replaceAll(/(\p{L})\s+(\p{L})/gu, (_, letter1, letter2) => `${letter1}*${letter2}`)
+  .replaceAll(/(?<!\\)\b\p{L}+/gu, letters => letters.split('').join('*'))
+  .replaceAll(/\\frac\{(.*?)}\{/g, (_, numerator) => `(${numerator})/(`)
+  .replaceAll(/(?<!\\){/g, '(')
+  .replaceAll(/(?<!\\)}/g, ')')
+  .replaceAll(/\\left|\\right|\\/g, '')
+  .replaceAll(/\bpi\b/gu, 'PI')
+  .replaceAll(/\be\b/gu, 'exp(1)')
+  .replaceAll(/\barc(?=(?:sin|cos|tan)h?)\b/gu, 'a')
+  .replaceAll(/\b((?:sin|cos|tan)h?)\^(-1)\b/gu, func => `a${func}`)
+);
+
+const formulaElem = document.getElementById('formula');
+const plotSize = 640;
+
+const mathField = MathQuill.getInterface(2).MathField(formulaElem, {
+  spaceBehavesLikeTab: true,
+  handlers: {
+    edit: () => {
+      const latex = mathField.latex();
+      const plotFormula = latexToPlotFormula(latex);
+      try {
+        functionPlot({
+          target: "#plot",
+          width: plotSize,
+          height: plotSize,
+          grid: true,
+          data: [{
+            fn: plotFormula
+          }]
+        });
+      } catch (exception) { }
+    }
+  }
+});
+</script>
