@@ -17,9 +17,11 @@ class Problem(db.Model):
     body = db.Column(db.Text, nullable=True)
     difficulty = db.Column(db.Float, nullable=False)
     tags = db.Column(db.Text, nullable = True)
-    result = db.Column(db.Text)
-    image64 = db.Column(db.Text)
-    submitter = db.Column(db.Text)
+    result = db.Column(db.Text, nullable = False)
+    options = db.Column(db.Text, nullable = True)
+    options_type = db.Column(db.Text, nullable = True)
+    image64 = db.Column(db.Text, nullable = True)
+    submitter = db.Column(db.Text, nullable = False)
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
