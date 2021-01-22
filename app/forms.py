@@ -8,3 +8,8 @@ class SampleForm(FlaskForm):
     lastName = StringField('Last Name')
     email = StringField('Email')
     submit = SubmitField('Submit')
+
+class SessionCreator(FlaskForm):
+    text = StringField('Name:')
+    join = SubmitField("Join")
+    create = SubmitField("Create")
