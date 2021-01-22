@@ -62,16 +62,33 @@ def session_create():
     print("session page")
     if request.method == "POST":
         #Join
+        print(request.form)
         if "join" in request.form:
             sid = request.form["text"]
             if sid in sessions:
-                member = Member(Member.random_id())
+                member = Member(Member.random_id(), sid)
                 sessions[sid].add_member()
-            redirect("/session/"+sid+"/user")
+            return redirect("/session/"+sid+"/user")
         #Create
         if "create" in request.form:
             sid = Session.random_id()
             sessions[sid] = Session(sid)
-            redirect("/session/"+sid+"/admin")
+            return redirect("/session/"+sid+"/admin")
+    else:
+        return render_template("session_create.html", form=form)
 
-    return render_template("session_create.html", form=form)
+@app.route("/session/<string:sid>/admin")
+def session_admin(sid):
+    if not sid in sessions:
+        return "Neplatne ID"
+    
+    session = sessions[sid]
+    return render_template("session_admin.html", session=session)
+
+@app.route("/session/<string:sid>/user")
+def session_user(sid):
+    if not sid in sessions:
+        return "Neplatne ID"
+    
+    session = sessions[sid]
+    return render_template("session_user.html", session=session)
