@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-divider.min.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-divider.min.css') }}">
 
     {% block headscript %}{% endblock %}
 
@@ -52,8 +52,11 @@
                     <a href="{{ url_for('create_question') }}" class="navbar-item is-size-5 has-text-weight-semibold">
                         Tvorba otázek
                     </a>
-                    <a href="{{ url_for('index') }}" class="navbar-item is-size-5 has-text-weight-semibold">
-                        Articles
+                    <a href="{{ url_for('session_create') }}" class="navbar-item is-size-5 has-text-weight-semibold">
+                        Kvíz
+                    </a>
+                    <a href="{{ url_for('login') }}" class="navbar-item is-size-5 has-text-weight-semibold">
+                        Přihlásit se
                     </a>
                 </div>
             </div>
