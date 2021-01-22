@@ -70,7 +70,7 @@ def session_create():
             sid = request.form["text"]
             if sid in sessions:
                 member = Member(Member.random_id(), sid)
-                sessions[sid].add_member()
+                sessions[sid].add_member(member)
             return redirect("/session/"+sid+"/user")
         #Create
         if "create" in request.form:
@@ -86,6 +86,7 @@ def session_admin(sid):
         return "Neplatne ID"
     
     session = sessions[sid]
+    print(session.members)
     return render_template("session_admin.html", session=session)
 
 @app.route("/session/<string:sid>/user")
