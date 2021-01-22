@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect
+from flask import render_template, redirect, request
 
 from .forms import SampleForm
 from .create_question import CreateQuestionForm
@@ -20,10 +20,12 @@ def articles():
 @app.route('/create-question', methods=['GET', 'POST'])
 def create_question():
     form = CreateQuestionForm()
+
     # If form is upon submission and is validated success
     if form.validate_on_submit():
         return redirect('index')
 
+    print(request.form)
     return render_template('create-question.html', form=form)
 
 
