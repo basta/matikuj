@@ -16,6 +16,10 @@ def articles():
     return render_template('articles.html')
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 @app.route('/create-question', methods=['GET', 'POST'])
 def create_question():
     form = CreateQuestionForm()

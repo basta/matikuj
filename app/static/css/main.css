@@ -5,14 +5,15 @@
 }
 
 .tab button {
-  background-color: inherit;
   float: left;
+  background-color: inherit;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
 }
+
 
 .tab button:hover {
   background-color: #ddd;
@@ -29,6 +30,4 @@
   border-top: none;
 }
 
-#Tasks {
-  display: active;
-}
+
