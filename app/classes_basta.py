@@ -7,6 +7,9 @@ class Session:
         self.members: List[Member] = []
         self.id = session_id
     
+    def add_member(self, member: Member):
+        self.members.append(member)
+
     @staticmethod
     def random_id() -> str:
         return ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))

@@ -6,7 +6,7 @@ from .forms import SessionCreator
 from .models import Problem
 from .classes_basta import *
 
-from typing import List
+from typing import List, Dict
 
 
 @app.route('/')
@@ -55,7 +55,7 @@ def forms():
 
     return render_template('forms.html', form=form)
 
-sessions: List[Session] = []
+sessions: Dict[str, Session] = {}
 @app.route("/session/", methods=["GET", "POST"])
 def session_create():
     form = SessionCreator()
@@ -63,9 +63,15 @@ def session_create():
     if request.method == "POST":
         #Join
         if "join" in request.form:
-            pass
+            sid = request.form["text"]
+            if sid in sessions:
+                member = Member(Member.random_id())
+                sessions[sid].add_member()
+            redirect("/session/"+sid+"/user")
         #Create
         if "create" in request.form:
-            Session()
+            sid = Session.random_id()
+            sessions[sid] = Session(sid)
+            redirect("/session/"+sid+"/admin")
 
     return render_template("session_create.html", form=form)
