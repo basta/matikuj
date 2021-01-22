@@ -31,6 +31,8 @@ const plotSize = 640;
 
 const mathField = MathQuill.getInterface(2).MathField(formulaElem, {
   spaceBehavesLikeTab: true,
+  restrictMismatchedBrackets: true,
+  supSubsRequireOperand: true,
   handlers: {
     edit: () => {
       const latex = mathField.latex();
