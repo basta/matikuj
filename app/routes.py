@@ -21,6 +21,19 @@ def articles():
     return render_template('articles.html')
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/teacher')
+def teacher():
+    return render_template('teacher.html')
+
+@app.route('/sample_problem')
+def sample_problem():
+    return render_template('sample_problem.html')
+
+
 @app.route('/create-question', methods=['GET', 'POST'])
 def create_question():
     form = CreateQuestionForm()
@@ -40,11 +53,8 @@ def create_question():
     db.session.commit()
     if form.validate_on_submit():
         return redirect('index')
-<<<<<<< HEAD
 
     print(request.form)
-=======
->>>>>>> 705a81486a4cb34a7e470719cda298e2da160c8c
     return render_template('create-question.html', form=form)
 
 
@@ -73,7 +83,7 @@ def session_create():
             sid = request.form["text"]
             if sid in sessions:
                 member = Member(Member.random_id(), sid)
-                sessions[sid].add_member()
+                sessions[sid].add_member(member)
             return redirect("/session/"+sid+"/user")
         #Create
         if "create" in request.form:
@@ -89,6 +99,7 @@ def session_admin(sid):
         return "Neplatne ID"
     
     session = sessions[sid]
+    print(session.members)
     return render_template("session_admin.html", session=session)
 
 @app.route("/session/<string:sid>/user")
