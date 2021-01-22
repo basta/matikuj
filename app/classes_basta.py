@@ -6,6 +6,7 @@ class Member:
     def __init__(self, member_id:str, current_session_id:str):
         self.member_id = member_id
         self.current_session_id = current_session_id
+        self.name = Member.random_id()
 
     @staticmethod
     def random_id() -> str:
