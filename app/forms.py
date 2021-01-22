@@ -11,4 +11,5 @@ class SampleForm(FlaskForm):
 
 class SessionCreator(FlaskForm):
     text = StringField('Name:')
-    submit = SubmitField("Submit")
+    join = SubmitField("Join")
+    create = SubmitField("Create")

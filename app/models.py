@@ -23,6 +23,7 @@ class Problem(db.Model):
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
     typ = db.Column(db.String(80), nullable=False)
     difficulty = db.Column(db.Float, nullable=False)
     problems = db.Column(db.Text)
