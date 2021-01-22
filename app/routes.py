@@ -20,6 +20,11 @@ def articles():
 def login():
     return render_template('login.html')
 
+@app.route('/sample_problem')
+def sample_problem():
+    return render_template('sample_problem.html')
+
+
 @app.route('/create-question', methods=['GET', 'POST'])
 def create_question():
     form = CreateQuestionForm()
