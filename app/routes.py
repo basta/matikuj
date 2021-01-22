@@ -40,11 +40,8 @@ def create_question():
     db.session.commit()
     if form.validate_on_submit():
         return redirect('index')
-<<<<<<< HEAD
 
     print(request.form)
-=======
->>>>>>> 705a81486a4cb34a7e470719cda298e2da160c8c
     return render_template('create-question.html', form=form)
 
 
