@@ -2,7 +2,9 @@ from app import app
 from flask import render_template, redirect, request
 
 from .forms import SampleForm
+from .forms import SessionCreator
 from .models import Problem
+from .classes_basta import *
 
 
 @app.route('/')
@@ -50,3 +52,11 @@ def forms():
         return redirect('index')
 
     return render_template('forms.html', form=form)
+
+@app.route("/session/", methods=["GET", "POST"])
+def session_create():
+    form = Single()
+    print("session page")
+    if request.method == "POST":
+        print(request.form)
+    return render_template("session_create.html", form=form)
