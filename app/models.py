@@ -14,8 +14,19 @@ class User(db.Model):
 class Problem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     typ = db.Column(db.String(80), nullable=False)
-    body = db.Column(db.Text, nullable=False)
+    body = db.Column(db.Text, nullable=True)
     difficulty = db.Column(db.Float, nullable=False)
     tags = db.Column(db.Text, nullable = True)
     result = db.Column(db.Text)
     image64 = db.Column(db.Text)
+    submitter = db.Column(db.Text)
+
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    typ = db.Column(db.String(80), nullable=False)
+    difficulty = db.Column(db.Float, nullable=False)
+    problems = db.Column(db.Text)
+    submitter = db.Column(db.Text)
+    views = db.Column(db.Integer)
+    
+
