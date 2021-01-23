@@ -10,9 +10,9 @@ class SampleForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class SessionCreator(FlaskForm):
-    text = StringField('Name:')
-    join = SubmitField("Join")
-    create = SubmitField("Create")
+    text = StringField('Jméno:')
+    join = SubmitField("Připojit se")
+    create = SubmitField("Vytvořit")
 
 class SimpleButton(FlaskForm):
     submit = SubmitField("Vytvořit")
