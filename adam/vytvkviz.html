@@ -60,11 +60,11 @@ available-question > .add-button, used-question > .remove-button {
       </div>
     </div>
     <form method="POST" onsubmit="onsubmit">
-      {{form.submit}}
+      <button id="done">{{form.submit}}</button>
     </form>
     <script>
       function onsubmit(e){
-          console.log(e)
+          console.log
       }
       const questions = new Map([
               [1, {text: 'Kolik je 1 + 1?'}],
