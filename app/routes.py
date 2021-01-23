@@ -5,7 +5,7 @@ from .forms import SampleForm
 from .forms import SessionCreator, SimpleButton
 from .models import Problem, Quiz
 from .create_question import CreateQuestionForm
-from .classes_basta import *
+from .basta import *
 from .create_question import CreateQuestionForm
 
 from typing import List, Dict
