@@ -1,6 +1,11 @@
 import random
 import string
 from typing import List
+from app import app, db
+from .models import *
+
+def quiz_selection() -> List[int]:
+    pass
 
 class Member:
     def __init__(self, member_id:str, current_session_id:str):
@@ -24,4 +29,3 @@ class Session:
     @staticmethod
     def random_id() -> str:
         return ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
-

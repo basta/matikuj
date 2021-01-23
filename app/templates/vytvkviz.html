@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="cs">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+{% extends "layout.html" %}
+{% block headscript %}
     <title>Vytvořit kvíz</title>
     <style>
 body {
@@ -48,8 +46,8 @@ available-question > .add-button, used-question > .remove-button {
   font-weight: 900;
 }
     </style>
-  </head>
-  <body>
+{% endblock %}
+{% block content %}
     <h1>Vytvořit kvíz</h1>
     <div id="questions-container">
       <div id="available-questions">
@@ -91,5 +89,4 @@ available-question > .add-button, used-question > .remove-button {
                     `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
                 }
     </script>
-  </body>
-</html>
+{% endblock %}
