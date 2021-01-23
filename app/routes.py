@@ -48,7 +48,7 @@ def solve_question():
     return render_template('solve-question.html', form=form)
 
 
-@app.route('/answer-question/2', methods=['GET', 'POST'])
+@app.route('/answer-question/5', methods=['GET', 'POST'])
 def hardcoded_graph_question():
     form = HardcodedGraphQuestion()
     if form.validate_on_submit():
