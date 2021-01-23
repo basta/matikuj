@@ -1,57 +1,80 @@
+<!-- Home page -->
 {% extends "layout.html" %}
 
 {% block content %}
-<section class="section">
-	<div class="tab">
-		<button class="tablinks" id="defaultClicked" onclick="openTab(event, 'Tasks')">Úložky</button>
-		<button class="tablinks" onclick="openTab(event, 'Contest')">Kvízy</button>
-		<button class="tablinks" onclick="openTab(event, 'About')">O aplikaci</button>
-		<button class="teachers" onclick="window.location='login'">Pro učitele</button>
-	</div>
-	<div id="Tasks" class="tabcontent">
-		<h3>Úložky</h3>
-		<p>Tady brzy budou úložky, které byste měli být schopni vyřetit do deseti minut.</p>
-		<div id="listProblems">
-			<ul>
-				<li><a href="{{ url_for('sample_problem') }}">Uloha 1</a> </li>
-				<li><a href="{{ url_for('sample_problem') }}">Uloha 2</a> </li>
-				<li><a href="{{ url_for('sample_problem') }}">Uloha 3</a> </li>
-				<li><a href="{{ url_for('sample_problem') }}">Uloha 4</a> </li>
-			</ul>
-		</div>
-	</div>
+<!-- Image -->
+<section class="hero ">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8 is-offset-2">
+                    <figure class="image is-16by9">
+                        <img src="{{ url_for('static', filename='images/first-post.png')}}" alt="">
+                    </figure>
+                </div>
+            </div>
 
-	<div id="Contest" class="tabcontent">
-		<h3>Kvízy</h3>
-		<p>Už brzy se můžete těšit na testíček.</p>
-	</div>
+            <section class="section">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <div class="content is-medium">
+                            <h2 class="subtitle is-4">December 25, 2018</h2>
+                            <h1 class="title">Getting Started</h1>
+                            <p>This is a starter template for creating a beautiful, customizable blog with minimal
+                                effort. You’ll only have to change a few settings and you’re ready to go. As with
+                                all Jigsaw sites,
+                                configuration settings can be found in config</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-	<div id="About" class="tabcontent">
-		<h3>O aplikaci</h3>
-		<p>Praise Whizzmot, and Whišta too.</p>
-	</div>
+            <div class="is-divider"></div>
+
+            <section class="section">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+                        <div class="content is-medium">
+                            <h2 class="subtitle is-4">December 25, 2018</h2>
+                            <h1 class="title">Getting Started</h1>
+                            <p>This is a starter template for creating a beautiful, customizable blog with minimal
+                                effort. You’ll only have to change a few settings and you’re ready to go. As with
+                                all Jigsaw sites,
+                                configuration settings can be found in config</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
 </section>
 
-<script>
-	function openTab(evt, tabName) {
-		var i, tabcontent, tablinks;
-
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className.replace(" active", "");
-		}
-
-		document.getElementById(tabName).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-
-	window.onload = function () {
-		document.getElementById('defaultClicked').click();
-	}
-</script>
+<!-- newsletter -->
+<section class="section">
+    <div class="columns">
+        <div class="column is-10 is-offset-1">
+            <div class="container has-text-centered is-fluid">
+                <div class="hero is-light">
+                    <div class="hero-body">
+                        <h2 class="title is-4">Sign up for our newsletter</h1>
+                            <div class="column is-6 is-offset-3">
+                                <div class="field has-addons has-addons-centered">
+                                    <div class="control is-expanded">
+                                        <input class="input " type="text" placeholder="Email address">
+                                    </div>
+                                    <div class="control">
+                                        <a class="button is-info">
+                                            Subscribe
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

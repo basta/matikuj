@@ -1,6 +1,6 @@
-<head>
-    <meta http-equiv="refresh" content="1">
-</head>
+{% extends "layout.html" %}
+
+{% block content %}
 <body>
     <h1>ID této místnosti: {{session.id}}</h1>
     Uživatelé: <br>
@@ -8,3 +8,4 @@
     <p>{{member.name}}</p>
     {% endfor %}
 </body>
+{% endblock %}
