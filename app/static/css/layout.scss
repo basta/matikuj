@@ -8,6 +8,7 @@ body {
     --clr-accent: rgb(221, 64, 43);
     --clr-text-light: rgb(255, 255, 255);
     --clr-text-dark: black;
+    --clr-light-gray: rgb(199, 199, 199);
     font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     color: var(--clr-text-dark);
     //background-color: rgb(255, 249, 248);
@@ -23,15 +24,54 @@ body {
             font-weight: 500;
             margin-top: .6em;
             margin-bottom: .2em;
-            background-color: white;
+            //background-color: white;
+            background-color: transparent;
         }
         .radios {
             list-style: none;
         }
-        .radios-vertical {
+        .separator-big {
+            height: 2em;
+        }
+        .separator-small {
+            height: .75em;
+        }
+        .math-field, .graph-formula {
+            width: 100%;
+            height: 1.5em;
+        }
+        .form-highlight-button {
+            color: var(--clr-text-light);
+            background-color: var(--clr-primary);
+            padding: .5em .5em;
+            border-radius: 100vh;
+        }
+        .math-field, .graph-formula {
+            width: 100%;
+            border: 1px solid var(--clr-light-gray);
+            border-radius: 5px;
+            border-bottom-left-radius: 0;
+        }
+        .virtual-keys {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            .virtual-key {
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid var(--clr-light-gray);
+                border-left: 1px solid var(--clr-light-gray);
+                padding: 0.3em 0;
+                width: 2em;
+                &:first-of-type {
+                    border-bottom-left-radius: 5px;
+                }
+                &:last-of-type {
+                    border-right: 1px solid var(--clr-light-gray);
+                    border-bottom-right-radius: 5px;
+                }
+            }
         }
     }
 }

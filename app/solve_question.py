@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 
 
 class SolveQuestionForm(FlaskForm):
-    body = "Toto je dlouhý text se zadáním otázky. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil enim accusamus nam illum rerum odio rem aspernatur obcaecati facilis, ab reiciendis aut molestiae doloribus, officia incidunt necessitatibus amet praesentium tenetur."
+    body = r"Kolik je \(\sqrt{\left(\frac{-42}{42}\right)^{-e^{\pi i}}}\)?"
     typ = "multiple"
-    options = RadioField("Možnosti odpovědi", choices=["Možnost "+str(i) for i in range(4)])
+    options = RadioField("Možnosti odpovědi", choices=[r"\(\frac{1}{42}\)", r"\(\pm i\)", "Whizzmot", r"\(\mathrm\LaTeX\)"])
     submit = SubmitField('Submit')

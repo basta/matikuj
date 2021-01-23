@@ -8,6 +8,7 @@ body {
   --clr-accent: rgb(221, 64, 43);
   --clr-text-light: rgb(255, 255, 255);
   --clr-text-dark: black;
+  --clr-light-gray: rgb(199, 199, 199);
   font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   color: var(--clr-text-dark);
   display: -webkit-box;
@@ -38,24 +39,72 @@ body form .label {
   font-weight: 500;
   margin-top: .6em;
   margin-bottom: .2em;
-  background-color: white;
+  background-color: transparent;
 }
 
 body form .radios {
   list-style: none;
 }
 
-body form .radios-vertical {
+body form .separator-big {
+  height: 2em;
+}
+
+body form .separator-small {
+  height: .75em;
+}
+
+body form .math-field, body form .graph-formula {
+  width: 100%;
+  height: 1.5em;
+}
+
+body form .form-highlight-button {
+  color: var(--clr-text-light);
+  background-color: var(--clr-primary);
+  padding: .5em .5em;
+  border-radius: 100vh;
+}
+
+body form .math-field, body form .graph-formula {
+  width: 100%;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+}
+
+body form .virtual-keys {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+body form .virtual-keys .virtual-key {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--clr-light-gray);
+  border-left: 1px solid var(--clr-light-gray);
+  padding: 0.3em 0;
+  width: 2em;
+}
+
+body form .virtual-keys .virtual-key:first-of-type {
+  border-bottom-left-radius: 5px;
+}
+
+body form .virtual-keys .virtual-key:last-of-type {
+  border-right: 1px solid var(--clr-light-gray);
+  border-bottom-right-radius: 5px;
 }
 
 .navbar {
