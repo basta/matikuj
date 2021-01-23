@@ -56,6 +56,7 @@ body form .separator-small {
 
 body form .math-field, body form .graph-formula {
   width: 100%;
+  height: 1.5em;
 }
 
 body form .form-highlight-button {
@@ -63,6 +64,52 @@ body form .form-highlight-button {
   background-color: var(--clr-primary);
   padding: .5em .5em;
   border-radius: 100vh;
+  border: none;
+  width: 30%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+body form .math-field, body form .graph-formula {
+  width: 100%;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+}
+
+body form .virtual-keys {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+body form .virtual-keys .virtual-key {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--clr-light-gray);
+  border-left: 1px solid var(--clr-light-gray);
+  padding: 0.3em 0;
+  width: 2em;
+}
+
+body form .virtual-keys .virtual-key:first-of-type {
+  border-bottom-left-radius: 5px;
+}
+
+body form .virtual-keys .virtual-key:last-of-type {
+  border-right: 1px solid var(--clr-light-gray);
+  border-bottom-right-radius: 5px;
 }
 
 .navbar {
@@ -78,6 +125,7 @@ body form .form-highlight-button {
           align-items: center;
   -webkit-box-shadow: 2px 2px 2px #d1d1d1;
           box-shadow: 2px 2px 2px #d1d1d1;
+  z-index: 10;
 }
 
 .navbar .navbar-brand {
