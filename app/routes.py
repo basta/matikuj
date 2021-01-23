@@ -39,6 +39,12 @@ def sample_problem():
     return render_template('sample_problem.html')
 
 
+@app.route('/create_quiz')
+def vytvkviz():
+    form = SolveQuestionForm()
+    return render_template('vytvkviz.html', form=form)
+
+
 @app.route('/answer-question', methods=['GET', 'POST'])
 def solve_question():
     form = SolveQuestionForm()
