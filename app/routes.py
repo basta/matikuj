@@ -1,4 +1,4 @@
-from app import app
+from app import app, db
 from flask import render_template, redirect, request
 
 from .forms import SampleForm
@@ -6,6 +6,7 @@ from .forms import SessionCreator
 from .create_question import CreateQuestionForm
 from .models import Problem
 from .classes_basta import *
+from .create_question import CreateQuestionForm
 
 from typing import List, Dict
 
@@ -42,20 +43,50 @@ def create_question():
     form = CreateQuestionForm()
 
     # If form is upon submission and is validated success
-    data = request.form
-    problem = Problem(
-        typ = data["typ"],
-        body = data["body"],
-        difficulty = data["difficulty"],
-        tags = data["tags"],
-        result = data["result"],
-        image64 = data["image64"],
-        submitter = data["submitter"])
-    
-    db.session.add(problem)
-    db.session.commit()
-    if form.validate_on_submit():
-        return redirect('index')
+    if request.method == "POST":
+        #Defaults
+        image64 = None
+        options = None
+        options_type = None
+
+
+        data = request.form
+        print(data)
+        typ = data["typ"]
+        body = data["body"]
+        difficulty = data["difficulty"]
+        tags = data["tags"]
+        submitter = 1
+        print("typ:",typ, type(typ))
+        if typ == "field":
+            result = data["result_field"]
+        elif typ == "multiple":
+            print("jsem tu")
+            result = "0"
+            if data["multiple_ans_type"] == "field":
+                options = "|delim|".join(data.getlist("multiple_ans_field"))
+                options_type = "field"
+                print("Options:", options)
+            elif data["multiple_ans_type"] == "graph":
+                pass
+            elif data["multiple_ans_type"] == "image":
+                pass
+
+        problem = Problem(
+            typ = typ,
+            body = body,
+            difficulty = difficulty,
+            tags = tags,
+            result = result,
+            options = options,
+            options_type = options_type,
+            image64 = data["image64"],
+            submitter = 1)
+        
+        db.session.add(problem)
+        db.session.commit()
+        if form.validate_on_submit():
+            return redirect('index')
 
     print(request.form)
     return render_template('create-question.html', form=form)

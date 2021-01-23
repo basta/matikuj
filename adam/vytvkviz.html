@@ -7,47 +7,59 @@
     <style>
 body {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: auto;
   font-family: sans-serif;
   background-color: #488;
 }
-    #available-questions, #used-questions {
-      width: min(320px, 100%);
-      display: flex;
-      flex-direction: column;
-      margin: 16px;
-      padding: 16px;
-      background-color: #dd2;
-      border-radius: 24px;
-    }
-    available-question, used-question {
-      display: flex;
-      flex-direction: row;
-      margin: 8px;
-      padding: 8px;
-      background-color: #4d4;
-      border-radius: 12px;
-      justify-content: space-between;
-    }
-    available-question > .add-button, used-question > .remove-button {
-      width: 36px;
-      height: 36px;
-      background-color: #fff;
-      padding: 0;
-      font-size: 16pt;
-      font-weight: 900;
-    }
+#questions-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-shrink: 0;
+  justify-content: center;
+}
+#available-questions, #used-questions {
+  width: min(480px, 100%);
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  padding: 16px;
+  background-color: #dd2;
+  border-radius: 24px;
+}
+available-question, used-question {
+  display: flex;
+  flex-direction: row;
+  margin: 8px;
+  padding: 8px;
+  background-color: #4d4;
+  border-radius: 12px;
+  justify-content: space-between;
+}
+available-question > .add-button, used-question > .remove-button {
+  width: 36px;
+  height: 36px;
+  background-color: #fff;
+  padding: 0;
+  font-size: 16pt;
+  font-weight: 900;
+}
     </style>
   </head>
   <body>
-    <div id="available-questions">
-      <div><strong>Dostupné otázky</strong> <button>Vytvořit otázku</button></div>
+    <h1>Vytvořit kvíz</h1>
+    <div id="questions-container">
+      <div id="available-questions">
+        <div><strong>Dostupné otázky</strong> <button>Vytvořit otázku</button></div>
+      </div>
+      <div id="used-questions">
+        <div><strong>Použité otázky</strong> <button>Vytvořit otázku</button></div>
+      </div>
     </div>
-    <div id="used-questions">
-      <div><strong>Použité otázky</strong> <button>Vytvořit otázku</button></div>
-    </div>
+    <button id="done">Hotovo</button>
     <script>
       const questions = new Map([
               [1, {text: 'Kolik je 1 + 1?'}],
