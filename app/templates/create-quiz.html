@@ -41,6 +41,9 @@ available-question > .add-button, used-question > .remove-button {
 #question-search {
   margin-left: 3px;
 }
+.hidden {
+  display: none;
+}
     </style>
 {% endblock %}
 {% block content %}
@@ -61,7 +64,7 @@ available-question > .add-button, used-question > .remove-button {
         <div><strong>Použité otázky</strong> <button>Vytvořit otázku</button></div>
       </div>
     </div>
-    <button id="done" onclick="submitQuiz()"></button>
+    <button id="done" onclick="submitQuiz()">Vytvořit</button>
     <script>
       function submitQuiz(){
         data = {quiz_problems: ""}
@@ -102,5 +105,15 @@ available-question > .add-button, used-question > .remove-button {
                   availableQuestions.innerHTML +=
                     `<available-question id="question-${questionId}">${renderQuestion(question)} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
                 }
+            const questionSearch = document.querySelector('#question-search');
+            questionSearch.addEventListener('input', () => {
+                    for (const questionElement of document.querySelectorAll('available-question')) {
+                            if (questionElement.innerText.toLowerCase().includes(questionSearch.value.toLowerCase())) {
+                                    questionElement.classList.remove('hidden');
+                                  } else {
+                                          questionElement.classList.add('hidden');
+                                        }
+                          }
+                  })
     </script>
 {% endblock %}
