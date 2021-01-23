@@ -45,6 +45,9 @@ body {
             background-color: var(--clr-primary);
             padding: .5em .5em;
             border-radius: 100vh;
+            border: none;
+            width: 30%;
+            align-self: center;
         }
         .math-field, .graph-formula {
             width: 100%;
