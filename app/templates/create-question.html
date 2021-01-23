@@ -22,12 +22,9 @@
 <h2>Tvorba otázky</h2>
 <form method="POST">
         {{ form.hidden_tag() }}
-<<<<<<< HEAD
         <!-- part 0 - task -->
         {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text úlohy...") }}
-        <label>Matematické formátování</label> <span class="math-field" id="task-math"></span>
-=======
-        {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
+        <label>Matematické formátování</label>
         <div class="math-container">
           <span class="math-field" id="task-math"></span>
           <button type="button" class="virtual-key">√</button>
@@ -37,7 +34,6 @@
           <button type="button" class="virtual-key">≤</button>
           <button type="button" class="virtual-key">≥</button>
         </div>
->>>>>>> da0a88778a3b60fc73583ab20e84b3620b1ec99f
         {{ form.image64.label(class="label") }} {{form.image64}}
 
         <div class="separator-big"></div>
