@@ -59,8 +59,13 @@ available-question > .add-button, used-question > .remove-button {
         <div><strong>Použité otázky</strong> <button>Vytvořit otázku</button></div>
       </div>
     </div>
-    <button id="done">Hotovo</button>
+    <form method="POST" onsubmit="onsubmit">
+      {{form.submit}}
+    </form>
     <script>
+      function onsubmit(e){
+          console.log(e)
+      }
       const questions = new Map([
               [1, {text: 'Kolik je 1 + 1?'}],
               [2, {text: 'Kolik je 2 + 2?'}],

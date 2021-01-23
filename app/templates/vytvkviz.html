@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vytvořit kvíz</title>
+    <style>
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  font-family: sans-serif;
+  background-color: #488;
+}
+#questions-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-shrink: 0;
+  justify-content: center;
+}
+#available-questions, #used-questions {
+  width: min(480px, 100%);
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  padding: 16px;
+  background-color: #dd2;
+  border-radius: 24px;
+}
+available-question, used-question {
+  display: flex;
+  flex-direction: row;
+  margin: 8px;
+  padding: 8px;
+  background-color: #4d4;
+  border-radius: 12px;
+  justify-content: space-between;
+}
+available-question > .add-button, used-question > .remove-button {
+  width: 36px;
+  height: 36px;
+  background-color: #fff;
+  padding: 0;
+  font-size: 16pt;
+  font-weight: 900;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Vytvořit kvíz</h1>
+    <div id="questions-container">
+      <div id="available-questions">
+        <div><strong>Dostupné otázky</strong> <button>Vytvořit otázku</button></div>
+      </div>
+      <div id="used-questions">
+        <div><strong>Použité otázky</strong> <button>Vytvořit otázku</button></div>
+      </div>
+    </div>
+    <button id="done" onclick="submitQuiz()"></button>
+    <script>
+      function submitQuiz(){
+        data = {quiz_problems: ""}
+        used_questions = document.body.querySelectorAll("used-question")
+        used_questions.forEach(question => {
+          data.quiz_problems += question.id + " "
+        })
+        console.log(data)
+        fetch(url="/create-quiz", {method: "POST", body: data.quiz_problems})
+        console.log(used_questions)
+      }
+      const questions = new Map([
+          {% for question in questions %}[{{question.id}} , {text: "{{question.body}}"  }],{% endfor %}]);
+          const availableQuestions = document.querySelector('#available-questions');
+          const usedQuestions = document.querySelector('#used-questions');
+          questions.forEach((question, questionId) => availableQuestions.innerHTML +=
+                  `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
+                )
+          const addQuestion = questionId => {
+                  const question = questions.get(questionId);
+                  document.querySelector(`#question-${questionId}`).remove();
+                  usedQuestions.innerHTML +=
+                    `<used-question id="question-${questionId}">${question.text} <button class="remove-button" onclick="removeQuestion(${questionId})">-</button></available-question>`
+                }
+          const removeQuestion = questionId => {
+                  const question = questions.get(questionId);
+                  document.querySelector(`#question-${questionId}`).remove();
+                  availableQuestions.innerHTML +=
+                    `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
+                }
+    </script>
+  </body>
+</html>
