@@ -5,7 +5,7 @@
 
 body {
     --clr-primary: rgb(221, 64, 43);
-    --clr-accent: rgb(221, 64, 43);
+    --clr-accent: rgb(37, 118, 150);
     --clr-text-light: rgb(255, 255, 255);
     --clr-text-dark: black;
     --clr-light-gray: rgb(199, 199, 199);
@@ -17,6 +17,7 @@ body {
     justify-content: space-between;
     min-height: 100vh;
     overflow-x: hidden;
+    
     form {
         display: flex;
         flex-direction: column;
@@ -48,6 +49,14 @@ body {
             border: none;
             width: 30%;
             align-self: center;
+        }
+        .form-subtle-button {
+            font-size: 0.75em;
+            background-color: transparent;
+            border: 2px solid var(--clr-primary);
+            border-radius: 100vh;
+            padding: .5em .5em;
+            width: 30%;
         }
         .math-field, .graph-formula {
             width: 100%;

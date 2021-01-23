@@ -12,6 +12,14 @@ body {
   margin: auto;
   font-family: sans-serif;
   background-color: #488;
+  
+}
+#canvas {
+  display: block;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: -100;
 }
 #questions-container {
   display: flex;
@@ -60,11 +68,11 @@ available-question > .add-button, used-question > .remove-button {
       </div>
     </div>
     <form method="POST" onsubmit="onsubmit">
-      {{form.submit}}
+      <button id="done">{{form.submit}}</button>
     </form>
     <script>
       function onsubmit(e){
-          console.log(e)
+          console.log
       }
       const questions = new Map([
               [1, {text: 'Kolik je 1 + 1?'}],
