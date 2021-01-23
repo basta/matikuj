@@ -7,4 +7,4 @@ class SolveQuestionForm(FlaskForm):
     body = r"Kolik je \(\sqrt{\left(\frac{-42}{42}\right)^{-e^{\pi i}}}\)?"
     typ = "multiple"
     options = RadioField("Možnosti odpovědi", choices=[r"\(\frac{1}{42}\)", r"\(\pm i\)", "Whizzmot", r"\(\mathrm\LaTeX\)"])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Potvrdit')
