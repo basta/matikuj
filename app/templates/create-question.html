@@ -48,21 +48,21 @@
             {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
             <div class="separator-small"></div>
             <div id="multiple-image" style="display: none;">
-                <ul>
+                <ol type="A">
                 {% for letter in ["A", "B", "C", "D"] %}<li>
                     {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
                 </li>{% endfor %}
-                </ul>
+                </ol>
             </div>
             <div id="multiple-field" style="display: none;">
-                <ul>
+                <ol type="A">
                 {% for letter in ["A", "B", "C", "D"] %}<li>
                     {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input math-field") }}
                 </li>{% endfor %}
-                </ul>
+                </ol>
             </div>
             <div id="multiple-math" style="display: none;">
-                <ul>
+                <ol type="A">
                 {% for letter in ["A", "B", "C", "D"] %}
                     <li>{{ form.multiple_ans_field.label(class="label add-letters") }}
                     <div class="math-container">
@@ -77,10 +77,10 @@
                         </div>
                     </div></li>
                 {% endfor %}
-                </ul>
+                </ol>
             </div>
             <div id="multiple-graph" style="display: none;">
-                <ul>
+                <ol type="A">
                 {% for letter in ["A", "B", "C", "D"] %}<li>
                     {{ form.multiple_ans_graph.label(class="label add-letters") }}
                     <div class="graph-container">
@@ -95,7 +95,7 @@
                         <div class="graph-plot"></div>
                     </div></li>
                 {% endfor %}
-                </ul>
+                </ol>
             </div>
         </div>
 

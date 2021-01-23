@@ -64,6 +64,11 @@ body form .form-highlight-button {
   background-color: var(--clr-primary);
   padding: .5em .5em;
   border-radius: 100vh;
+  border: none;
+  width: 30%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 body form .math-field, body form .graph-formula {
