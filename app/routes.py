@@ -4,6 +4,7 @@ from flask import render_template, redirect, request
 from .forms import SampleForm
 from .forms import SessionCreator, SimpleButton
 from .models import Problem, Quiz
+from .create_question import CreateQuestionForm
 from .classes_basta import *
 from .create_question import CreateQuestionForm
 
@@ -26,9 +27,11 @@ def articles():
 def login():
     return render_template('login.html')
 
+
 @app.route('/teacher')
 def teacher():
     return render_template('teacher.html')
+
 
 @app.route('/sample_problem')
 def sample_problem():
@@ -102,6 +105,7 @@ def forms():
 
     return render_template('forms.html', form=form)
 
+
 sessions: Dict[str, Session] = {}
 @app.route("/session/", methods=["GET", "POST"])
 def session_create():
@@ -124,6 +128,7 @@ def session_create():
     else:
         return render_template("session_create.html", form=form)
 
+
 @app.route("/session/<string:sid>/admin")
 def session_admin(sid):
     if not sid in sessions:
@@ -132,6 +137,7 @@ def session_admin(sid):
     session = sessions[sid]
     print(session.members)
     return render_template("session_admin.html", session=session)
+
 
 @app.route("/session/<string:sid>/user")
 def session_user(sid):

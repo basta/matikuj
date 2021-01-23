@@ -1,65 +1,57 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Matikuj</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  </head>
+{% extends "layout.html" %}
+
 {% block content %}
-<!-- Image -->
-<div>
-</div>
-<!-- newsletter -->
 <section class="section">
 	<div class="tab">
 		<button class="tablinks" id="defaultClicked" onclick="openTab(event, 'Tasks')">Úložky</button>
-  		<button class="tablinks" onclick="openTab(event, 'Contest')">Kvízy</button>
-  		<button class="tablinks" onclick="openTab(event, 'About')">O aplikaci</button>
-  		<button class="teachers" onclick="window.location='login'">Pro učitele</button>
+		<button class="tablinks" onclick="openTab(event, 'Contest')">Kvízy</button>
+		<button class="tablinks" onclick="openTab(event, 'About')">O aplikaci</button>
+		<button class="teachers" onclick="window.location='login'">Pro učitele</button>
 	</div>
 	<div id="Tasks" class="tabcontent">
-	  <h3>Úložky</h3>
-	  <p>Tady brzy budou úložky, které byste měli být schopni vyřetit do deseti minut.</p>
+		<h3>Úložky</h3>
+		<p>Tady brzy budou úložky, které byste měli být schopni vyřetit do deseti minut.</p>
 		<div id="listProblems">
-   <ul>
-      <li><a href="{{ url_for('sample_problem') }}">Uloha 1</a> </li>
-      <li><a href="{{ url_for('sample_problem') }}">Uloha 2</a> </li>
-      <li><a href="{{ url_for('sample_problem') }}">Uloha 3</a> </li>
-      <li><a href="{{ url_for('sample_problem') }}">Uloha 4</a> </li>
-   </ul>
-</div>
+			<ul>
+				<li><a href="{{ url_for('sample_problem') }}">Uloha 1</a> </li>
+				<li><a href="{{ url_for('sample_problem') }}">Uloha 2</a> </li>
+				<li><a href="{{ url_for('sample_problem') }}">Uloha 3</a> </li>
+				<li><a href="{{ url_for('sample_problem') }}">Uloha 4</a> </li>
+			</ul>
+		</div>
 	</div>
 
 	<div id="Contest" class="tabcontent">
-	  <h3>Kvízy</h3>
-	  <p>Už brzy se můžete těšit na testíček.</p>
+		<h3>Kvízy</h3>
+		<p>Už brzy se můžete těšit na testíček.</p>
 	</div>
 
 	<div id="About" class="tabcontent">
-	  <h3>O aplikaci</h3>
-	  <p>Praise Whizzmot, and Whišta too.</p>
+		<h3>O aplikaci</h3>
+		<p>Praise Whizzmot, and Whišta too.</p>
 	</div>
 </section>
 
 <script>
 	function openTab(evt, tabName) {
-  		var i, tabcontent, tablinks;
+		var i, tabcontent, tablinks;
 
 		tabcontent = document.getElementsByClassName("tabcontent");
 		for (i = 0; i < tabcontent.length; i++) {
-		  tabcontent[i].style.display = "none";
+			tabcontent[i].style.display = "none";
 		}
 
 		tablinks = document.getElementsByClassName("tablinks");
 		for (i = 0; i < tablinks.length; i++) {
-		  tablinks[i].className = tablinks[i].className.replace(" active", "");
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
 		}
 
 		document.getElementById(tabName).style.display = "block";
 		evt.currentTarget.className += " active";
 	}
 
-	window.onload = function(){
-			document.getElementById('defaultClicked').click(); 
+	window.onload = function () {
+		document.getElementById('defaultClicked').click();
 	}
 </script>
 {% endblock %}

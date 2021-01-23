@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Matikuj</title>
-  </head>
-  <body>
+{% extends "layout.html" %}
+
+{% block content %}
+  <div>
     <form action="/action_page.php">
     <label for="usrname">Username</label>
     <input type="text" id="usrname" name="usrname" required>
-<br>
+  <br>
     <label for="psw">Password</label>
     <input type="password" id="psw" name="psw">
   </form>
-<br>
+  <br>
     <button onclick="window.location='teacher'">Přihlásit se</button>
-<br>    
-<button>Registrovat se</button>
-  </body>
-</html>
-
-
+  <br>    
+  <button>Registrovat se</button>
+</div>
+{% endblock %}

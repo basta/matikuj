@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 
+{% block headscript %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.min.js"></script>
+{% endblock %}
 {% block content %}
 <!-- Use Flask-WTF to generate form fields -->
 <div class="container">
@@ -7,6 +12,7 @@
         {{ form.hidden_tag() }}
         <div class="task-text">
             {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
+            <span class="math-field" id="task-math"></span>
             {{ form.image64.label(class="label") }} {{form.image64}}
         </div>
         {{ form.typ.label(class="label") }} {{ form.typ(id="type-selector", class="input") }}
@@ -23,8 +29,14 @@
             </div>
             <div id="multiple-field" style="display: none;">
                 {% for letter in ["A", "B", "C", "D"] %}
-                    {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input", placeholder="Text...") }}
+                <!-- {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input math-field") }} -->
+                {{ form.multiple_ans_field.label(class="label add-letters") }} <span class="math-field"></span>
                 {% endfor %}
+            </div>
+            <div id="multiple-math" style="display: none;">
+              {% for letter in ["A", "B", "C", "D"] %}
+              {{ form.multiple_ans_field.label(class="label add-letters") }} <span class="math-field"></span>
+              {% endfor %}
             </div>
             <div id="multiple-graph" style="display: none;">
                 {% for letter in ["A", "B", "C", "D"] %}
@@ -52,6 +64,7 @@
             typeMultiple.style = "display: block";
         }
     });
+    typeSelector.dispatchEvent(new Event("change"));
     const multipleTypeSelector = document.getElementById("multiple-type-selector");
     const multipleTypeField = document.getElementById("multiple-field");
     const multipleTypeGraph = document.getElementById("multiple-graph");
@@ -73,5 +86,19 @@
             multipleTypeImage.style = "display: block";
         }
     });
+    multipleTypeSelector.dispatchEvent(new Event("change"));
+    const MathQuillInterface = MathQuill.getInterface(2);
+    for (const mathFieldElem of document.getElementsByClassName("math-field")) {
+        const mathField = MathQuillInterface.MathField(mathFieldElem, {
+            spaceBehavesLikeTab: true,
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: () => {
+                    const latex = mathField.latex();
+                }
+            }
+        });
+    }
 </script>
 {% endblock %}
