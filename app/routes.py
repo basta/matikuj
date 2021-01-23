@@ -2,8 +2,8 @@ from app import app, db
 from flask import render_template, redirect, request
 
 from .forms import SampleForm
-from .forms import SessionCreator
-from .models import Problem
+from .forms import SessionCreator, SimpleButton
+from .models import Problem, Quiz
 from .classes_basta import *
 from .create_question import CreateQuestionForm
 
@@ -140,3 +140,26 @@ def session_user(sid):
     
     session = sessions[sid]
     return render_template("session_user.html", session=session)
+
+@app.route("/create-quiz", methods=["POST", "GET"])
+def create_quiz():
+    if request.method == "POST":
+        data = request.data.decode("utf-8").split()
+        data = [i.split("-")[1] for i in data]
+        print(data)
+        quiz = Quiz(typ="WIP",
+                    name="WIP",
+                    difficulty=0,
+                    problems=" ".join(data),
+                    submitter=0,
+                    views=1
+                    )
+
+        db.session.add(quiz)
+        db.session.commit()
+        return redirect("/index")
+    else:
+        questions = Problem.query.all()
+        print(questions)
+        return render_template("vytvkviz.html", questions = questions, form=SimpleButton())
+
