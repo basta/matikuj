@@ -86,6 +86,7 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 2px 2px 2px rgb(209, 209, 209);
+    z-index: 10;
     .navbar-brand {
         height: 2.5em;
         img {

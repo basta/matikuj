@@ -18,4 +18,4 @@ class CreateQuestionForm(FlaskForm):
     difficulty = SelectField('Obtížnost', choices=[i+1 for i in range(10)])
     tags = StringField('Tagy k úloze')
     submitter = 0
-    submit = SubmitField('Submit')
+    submit = SubmitField('Potvrdit')
