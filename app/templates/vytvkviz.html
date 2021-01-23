@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block headscript %}
+<style>
+  .inpage-link {
+    color: var(--clr-primary);
+    text-decoration: none;
+    font-style: italic;
+  }
+
+  #questions-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-shrink: 0;
+    justify-content: center;
+  }
+
+  #available-questions,
+  #used-questions {
+    width: min(480px, 100%);
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    padding: 16px;
+    background-color: white;
+    border: 2px solid var(--clr-primary);
+    border-radius: 24px;
+  }
+
+  available-question,
+  used-question {
+    display: flex;
+    flex-direction: row;
+    margin: 8px;
+    padding: 8px;
+    /* background-color: var(--clr-accent); */
+    border: 2px solid var(--clr-primary);
+    border-radius: 12px;
+    justify-content: space-between;
+  }
+
+  available-question>.add-button,
+  used-question>.remove-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 100vh;
+    border: none;
+    background-color: var(--clr-primary);
+    padding: 0;
+    font-size: 16pt;
+    font-weight: 900;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div>
+  <h2>Vytvořit kvíz</h2>
+  <div id="questions-container">
+    <div id="available-questions">
+      <div>
+        <h3>Dostupné otázky</h3>
+        <p>
+          Použijte nějakou z již vytvořených otázek a nebo si <a href="{{ url_for('create_question') }}" class="inpage-link">vytvořte vlastní</a>
+        </p>
+      </div>
+    </div>
+    <div id="used-questions">
+      <div>
+        <h3>Použité otázky</h3>
+        <p>
+          Použijte nějakou z již vytvořených otázek a nebo si <a href="{{ url_for('create_question') }}" class="inpage-link">vytvořte vlastní</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <form method="POST" onsubmit="onsubmit">
+    {{form.submit(class="form-highlight-button")}}
+  </form>
+
+
+
+  <script>
+    function onsubmit(e) {
+      console.log(e)
+    }
+    const questions = new Map([
+      [1, { text: 'Kolik je 1 + 1?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [2, { text: 'Kolik je 2 + 2?', difficulty: 5, tags: ["analytická geometrie", ""] }],
+      [3, { text: 'Kolik je 3 + 3?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [4, { text: 'Kolik je 4 + 4?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [5, { text: 'Kolik je 5 + 5?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [6, { text: 'Kolik je 6 + 6?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [7, { text: 'Kolik je 7 + 7?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [8, { text: 'Kolik je 8 + 8?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+      [9, { text: 'Kolik je 9 + 9?', difficulty: 5, tags: ["diferenciílní počty", ""] }],
+    ]);
+    const availableQuestions = document.querySelector('#available-questions');
+    const usedQuestions = document.querySelector('#used-questions');
+    questions.forEach((question, questionId) => availableQuestions.innerHTML +=
+      `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
+    )
+    const addQuestion = questionId => {
+      const question = questions.get(questionId);
+      document.querySelector(`#question-${questionId}`).remove();
+      usedQuestions.innerHTML +=
+        `<used-question id="question-${questionId}">${question.text} <button class="remove-button" onclick="removeQuestion(${questionId})">-</button></available-question>`
+    }
+    const removeQuestion = questionId => {
+      const question = questions.get(questionId);
+      document.querySelector(`#question-${questionId}`).remove();
+      availableQuestions.innerHTML +=
+        `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
+    }
+  </script>
+  <div>
+{% endblock %}
