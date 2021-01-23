@@ -10,7 +10,7 @@ class CreateQuestionForm(FlaskForm):
     # field
     result_field = StringField('Správný výsledek')
     # multiple
-    multiple_ans_type = SelectField('Typ možností', choices=[('field', 'Textové pole'), ('graph', 'Graf funkce'), ('image', 'Obrázek'),])
+    multiple_ans_type = SelectField('Typ možností', choices=[('math', 'Matematické pole'), ('field', 'Textové pole'), ('graph', 'Graf funkce'), ('image', 'Obrázek'),])
     multiple_ans_img = FileField('Obrázek')
     multiple_ans_graph = StringField('Graf funkce')
     multiple_ans_field = StringField('Text')

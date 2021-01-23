@@ -5,23 +5,32 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/function-plot/dist/function-plot.js"></script>
+<style>
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+    .separator {
+        height: 2em;
+    }
+</style>
 {% endblock %}
+
 {% block content %}
 <!-- Use Flask-WTF to generate form fields -->
 <div class="container">
     <form method="POST">
+        <!-- part 0 - task -->
         {{ form.hidden_tag() }}
-        <div class="task-text">
-            {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
-            <span class="math-field" id="task-math"></span>
-            {{ form.image64.label(class="label") }} {{form.image64}}
+        {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
+        <span class="math-field" id="task-math"></span>
+        {{ form.image64.label(class="label") }} {{form.image64}}
+        <div class="separator"></div>
+        {{ form.typ.label(class="label") }} {{ form.typ(id="type-selector", class="input") }}
+        <div id="type-field" style="display: none;">
+            {{ form.result_field.label(class="label") }} {{ form.result_field(class="input", placeholder="Text...") }}
         </div>
-        <div id="multiple-field" style="display: none;">
-            {% for letter in ["A", "B", "C", "D"] %}
-                {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input", placeholder="Text...") }}
-            {% endfor %}
-        </div>
-        <div id="type-multiple" style="display: none;">
+        <div id="type-multiple" class="flex-column" style="display: none;">
             {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
             <div id="multiple-image" style="display: none;">
                 {% for letter in ["A", "B", "C", "D"] %}
@@ -67,6 +76,7 @@
             typeField.style = "display: none";
             typeMultiple.style = "display: flex; flex-direction: column;";
         }
+        console.log("c")
     });
     typeSelector.dispatchEvent(new Event("change"));
     const multipleTypeSelector = document.getElementById("multiple-type-selector");
@@ -93,6 +103,7 @@
         }
     });
     multipleTypeSelector.dispatchEvent(new Event("change"));
+    
     const MathQuillInterface = MathQuill.getInterface(2);
     for (const mathFieldElem of document.getElementsByClassName("math-field")) {
         const mathField = MathQuillInterface.MathField(mathFieldElem, {
