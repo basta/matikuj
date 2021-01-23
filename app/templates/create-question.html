@@ -1,42 +1,52 @@
 {% extends "layout.html" %}
 
-{% block headscript %} 
-<style>
-    .multiple-ans {
-        display: flex;
-        flex-direction: column;
-    }
-</style>
+{% block headscript %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/function-plot/dist/function-plot.js"></script>
 {% endblock %}
-
 {% block content %}
 <!-- Use Flask-WTF to generate form fields -->
-<h2>Vytvořit otázku</h2>
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
-    {{ form.image64.label(class="label") }} {{form.image64}}
-    {{ form.typ.label(class="label") }} {{ form.typ(id="type-selector", class="input") }}
-    <!-- <div id="type-content"></div> -->
-    <div id="type-field" style="display: none;">
-        {{ form.result_field.label(class="label") }} {{ form.result_field(class="input", placeholder="Text...") }}
-    </div>
-    <div id="type-multiple" class="multiple-ans" style="display: none;">
-        {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
-        <div id="multiple-image" style="display: none;">
-            {% for letter in ["A", "B", "C", "D"] %}
-                {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
-            {% endfor %}
+<div class="container">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="task-text">
+            {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
+            <span class="math-field" id="task-math"></span>
+            {{ form.image64.label(class="label") }} {{form.image64}}
         </div>
         <div id="multiple-field" style="display: none;">
             {% for letter in ["A", "B", "C", "D"] %}
                 {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input", placeholder="Text...") }}
             {% endfor %}
         </div>
-        <div id="multiple-graph" style="display: none;">
-            {% for letter in ["A", "B", "C", "D"] %}
-                {{ form.multiple_ans_graph.label(class="label add-letters") }} {{ form.multiple_ans_graph(class="input", placeholder="Text...") }}
-            {% endfor %}
+        <div id="type-multiple" style="display: none;">
+            {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
+            <div id="multiple-image" style="display: none;">
+                {% for letter in ["A", "B", "C", "D"] %}
+                    {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
+                {% endfor %}
+            </div>
+            <div id="multiple-field" style="display: none;">
+                {% for letter in ["A", "B", "C", "D"] %}
+                    {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input math-field") }}
+                {% endfor %}
+            </div>
+            <div id="multiple-math" style="display: none;">
+                {% for letter in ["A", "B", "C", "D"] %}
+                    {{ form.multiple_ans_field.label(class="label add-letters") }} <span class="math-field"></span>
+                {% endfor %}
+            </div>
+            <div id="multiple-graph" style="display: none;">
+                {% for letter in ["A", "B", "C", "D"] %}
+                    {{ form.multiple_ans_graph.label(class="label add-letters") }}
+                    <div class="graph-container">
+                        <span class="graph-formula"></span>
+                        <div class="graph-plot"></div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
     {{ form.difficulty.label(class="label") }} {{ form.difficulty(class="input radios radios-vertical") }}
@@ -58,26 +68,85 @@
             typeMultiple.style = "display: flex; flex-direction: column;";
         }
     });
+    typeSelector.dispatchEvent(new Event("change"));
     const multipleTypeSelector = document.getElementById("multiple-type-selector");
     const multipleTypeField = document.getElementById("multiple-field");
+    const multipleTypeMath = document.getElementById("multiple-math");
     const multipleTypeGraph = document.getElementById("multiple-graph");
     const multipleTypeImage = document.getElementById("multiple-image");
     multipleTypeSelector.addEventListener("change", () => {
+        multipleTypeField.style = "display: none";
+        multipleTypeMath.style = "display: none";
+        multipleTypeGraph.style = "display: none";
+        multipleTypeImage.style = "display: none";
         if (multipleTypeSelector.value === "field") {
-            multipleTypeField.style = "display: flex; flex-direction: column;";
-            multipleTypeGraph.style = "display: none";
-            multipleTypeImage.style = "display: none";
+            multipleTypeField.style = "display: block";
+        }
+        else if (multipleTypeSelector.value === "math") {
+            multipleTypeMath.style = "display: block";
         }
         else if (multipleTypeSelector.value === "graph") {
-            multipleTypeField.style = "display: none";
-            multipleTypeGraph.style = "display: flex; flex-direction: column;";
-            multipleTypeImage.style = "display: none";
+            multipleTypeGraph.style = "display: block";
         }
         else if (multipleTypeSelector.value === "image") {
-            multipleTypeField.style = "display: none";
-            multipleTypeGraph.style = "display: none";
-            multipleTypeImage.style = "display: flex; flex-direction: column;";
+            multipleTypeImage.style = "display: block";
         }
     });
+    multipleTypeSelector.dispatchEvent(new Event("change"));
+    const MathQuillInterface = MathQuill.getInterface(2);
+    for (const mathFieldElem of document.getElementsByClassName("math-field")) {
+        const mathField = MathQuillInterface.MathField(mathFieldElem, {
+            spaceBehavesLikeTab: true,
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: () => {
+                    const latex = mathField.latex();
+                }
+            }
+        });
+    }
+    const latexToPlotFormula = latex => (latex
+        .replaceAll(/\\cdot\b/g, '*')
+        .replaceAll(/(\d)\s*(\p{L})/gu, (_, number, letter) => `${number}*${letter}`)
+        .replaceAll(/(\p{L})\s+(\p{L})/gu, (_, letter1, letter2) => `${letter1}*${letter2}`)
+        .replaceAll(/(?<!\\)\b\p{L}+/gu, letters => letters.split('').join('*'))
+        .replaceAll(/\\frac\{(.*?)}\{/g, (_, numerator) => `(${numerator})/(`)
+        .replaceAll(/\\left\|/g, 'abs(')
+        .replaceAll(/\\right\|/g, ')')
+        .replaceAll(/(?<!\\){/g, '(')
+        .replaceAll(/(?<!\\)}/g, ')')
+        .replaceAll(/\\left|\\right|\\/g, '')
+        .replaceAll(/\bpi\b/gu, 'PI')
+        .replaceAll(/\be\b/gu, 'exp(1)')
+        .replaceAll(/\barc(?=(?:sin|cos|tan)h?)\b/gu, 'a')
+        .replaceAll(/\b((?:sin|cos|tan)h?)\^(-1)\b/gu, func => `a${func}`)
+    );
+    const plotSize = 160;
+    for (const graphContainer of document.getElementsByClassName("graph-container")) {
+        const formulaElem = graphContainer.querySelector(".graph-formula")
+        const plotElem = graphContainer.querySelector(".graph-plot")
+        const mathField = MathQuill.getInterface(2).MathField(formulaElem, {
+            spaceBehavesLikeTab: true,
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: () => {
+                    const latex = mathField.latex();
+                    const plotFormula = latexToPlotFormula(latex);
+                    try {
+                        functionPlot({
+                            target: plotElem,
+                            width: plotSize,
+                            height: plotSize,
+                            grid: true,
+                            data: [{fn: plotFormula}],
+                        });
+                    } catch {
+                    }
+                }
+            }
+        });
+    }
 </script>
 {% endblock %}

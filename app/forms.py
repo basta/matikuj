@@ -13,3 +13,6 @@ class SessionCreator(FlaskForm):
     text = StringField('Name:')
     join = SubmitField("Join")
     create = SubmitField("Create")
+
+class SimpleButton(FlaskForm):
+    submit = SubmitField("Vytvořit")
