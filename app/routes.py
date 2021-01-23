@@ -177,5 +177,5 @@ def create_quiz():
     else:
         questions = Problem.query.all()
         print(questions)
-        return render_template("vytvkviz.html", questions = questions, form=SimpleButton())
+        return render_template("create-quiz.html", questions = questions, form=SimpleButton())
 
