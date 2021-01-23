@@ -16,7 +16,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
-    overflow-x: hidden;
+    //overflow-x: hidden;
     
     form {
         display: flex;
@@ -91,7 +91,8 @@ body {
 .navbar {
     position: fixed;
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     padding: 1em 2em;
     background-color: white;
     //background-color: var(--clr-accent);
@@ -184,4 +185,5 @@ body {
 .block-content-container {
     flex-grow: 100;
     padding: 2em 7.5vw;
+    margin-top: 5em;
 }

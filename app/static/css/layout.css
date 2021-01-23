@@ -22,7 +22,6 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 body form {
@@ -124,7 +123,8 @@ body form .virtual-keys .virtual-key:last-of-type {
 .navbar {
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   padding: 1em 2em;
   background-color: white;
   display: -webkit-box;
@@ -272,5 +272,6 @@ body form .virtual-keys .virtual-key:last-of-type {
       -ms-flex-positive: 100;
           flex-grow: 100;
   padding: 2em 7.5vw;
+  margin-top: 5em;
 }
 /*# sourceMappingURL=layout.css.map */
