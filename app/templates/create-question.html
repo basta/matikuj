@@ -27,12 +27,14 @@
         <label>Matematické formátování</label>
         <div class="math-container">
           <span class="math-field" id="task-math"></span>
-          <button type="button" class="virtual-key">√</button>
-          <button type="button" class="virtual-key">a<sup>b</sup></button>
-          <button type="button" class="virtual-key">|a|</button>
-          <button type="button" class="virtual-key">π</button>
-          <button type="button" class="virtual-key">≤</button>
-          <button type="button" class="virtual-key">≥</button>
+          <div class="virtual-keys">
+              <button type="button" class="virtual-key">√</button>
+              <button type="button" class="virtual-key">a<sup>b</sup></button>
+              <button type="button" class="virtual-key">|a|</button>
+              <button type="button" class="virtual-key">π</button>
+              <button type="button" class="virtual-key">≤</button>
+              <button type="button" class="virtual-key">≥</button>
+          </div>
         </div>
         {{ form.image64.label(class="label") }} {{form.image64}}
 
@@ -46,43 +48,54 @@
             {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
             <div class="separator-small"></div>
             <div id="multiple-image" style="display: none;">
-                {% for letter in ["A", "B", "C", "D"] %}
+                <ul>
+                {% for letter in ["A", "B", "C", "D"] %}<li>
                     {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
-                {% endfor %}
+                </li>{% endfor %}
+                </ul>
             </div>
             <div id="multiple-field" style="display: none;">
-                {% for letter in ["A", "B", "C", "D"] %}
+                <ul>
+                {% for letter in ["A", "B", "C", "D"] %}<li>
                     {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input math-field") }}
-                {% endfor %}
+                </li>{% endfor %}
+                </ul>
             </div>
             <div id="multiple-math" style="display: none;">
+                <ul>
                 {% for letter in ["A", "B", "C", "D"] %}
-                    {{ form.multiple_ans_field.label(class="label add-letters") }}
+                    <li>{{ form.multiple_ans_field.label(class="label add-letters") }}
                     <div class="math-container">
-                      <span class="math-field"></span>
-                      <button type="button" class="virtual-key">√</button>
-                      <button type="button" class="virtual-key">a<sup>b</sup></button>
-                      <button type="button" class="virtual-key">|a|</button>
-                      <button type="button" class="virtual-key">π</button>
-                      <button type="button" class="virtual-key">≤</button>
-                      <button type="button" class="virtual-key">≥</button>
-                    </div>
+                        <span class="math-field"></span>
+                        <div class="virtual-keys">
+                                <button type="button" class="virtual-key">√</button>
+                                <button type="button" class="virtual-key">a<sup>b</sup></button>
+                                <button type="button" class="virtual-key">|a|</button>
+                                <button type="button" class="virtual-key">π</button>
+                                <button type="button" class="virtual-key">≤</button>
+                                <button type="button" class="virtual-key">≥</button>
+                        </div>
+                    </div></li>
                 {% endfor %}
+                </ul>
             </div>
             <div id="multiple-graph" style="display: none;">
-                {% for letter in ["A", "B", "C", "D"] %}
+                <ul>
+                {% for letter in ["A", "B", "C", "D"] %}<li>
                     {{ form.multiple_ans_graph.label(class="label add-letters") }}
                     <div class="graph-container">
                         <div class="math-container">
                           <span class="graph-formula"></span>
+                          <div class="virtual-keys">
                           <button type="button" class="virtual-key">√</button>
                           <button type="button" class="virtual-key">a<sup>b</sup></button>
                           <button type="button" class="virtual-key">|a|</button>
                           <button type="button" class="virtual-key">π</button>
-                        </div>
+                        </div></div>
                         <div class="graph-plot"></div>
-                    </div>
+                    </div></li>
                 {% endfor %}
+                </ul>
             </div>
         </div>
 
