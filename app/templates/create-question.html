@@ -1,42 +1,48 @@
 {% extends "layout.html" %}
 
+{% block headscript %} 
+<style>
+    .multiple-ans {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <!-- Use Flask-WTF to generate form fields -->
-<div class="container">
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="task-text">
-            {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
-            {{ form.image64.label(class="label") }} {{form.image64}}
+<h2>Vytvořit otázku</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
+    {{ form.image64.label(class="label") }} {{form.image64}}
+    {{ form.typ.label(class="label") }} {{ form.typ(id="type-selector", class="input") }}
+    <!-- <div id="type-content"></div> -->
+    <div id="type-field" style="display: none;">
+        {{ form.result_field.label(class="label") }} {{ form.result_field(class="input", placeholder="Text...") }}
+    </div>
+    <div id="type-multiple" class="multiple-ans" style="display: none;">
+        {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
+        <div id="multiple-image" style="display: none;">
+            {% for letter in ["A", "B", "C", "D"] %}
+                {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
+            {% endfor %}
         </div>
-        {{ form.typ.label(class="label") }} {{ form.typ(id="type-selector", class="input") }}
-        <!-- <div id="type-content"></div> -->
-        <div id="type-field" style="display: none;">
-            {{ form.result_field.label(class="label") }} {{ form.result_field(class="input", placeholder="Text...") }}
+        <div id="multiple-field" style="display: none;">
+            {% for letter in ["A", "B", "C", "D"] %}
+                {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input", placeholder="Text...") }}
+            {% endfor %}
         </div>
-        <div id="type-multiple" style="display: none;">
-            {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
-            <div id="multiple-image" style="display: none;">
-                {% for letter in ["A", "B", "C", "D"] %}
-                    {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
-                {% endfor %}
-            </div>
-            <div id="multiple-field" style="display: none;">
-                {% for letter in ["A", "B", "C", "D"] %}
-                    {{ form.multiple_ans_field.label(class="label add-letters") }} {{ form.multiple_ans_field(class="input", placeholder="Text...") }}
-                {% endfor %}
-            </div>
-            <div id="multiple-graph" style="display: none;">
-                {% for letter in ["A", "B", "C", "D"] %}
-                    {{ form.multiple_ans_graph.label(class="label add-letters") }} {{ form.multiple_ans_graph(class="input", placeholder="Text...") }}
-                {% endfor %}
-            </div>
+        <div id="multiple-graph" style="display: none;">
+            {% for letter in ["A", "B", "C", "D"] %}
+                {{ form.multiple_ans_graph.label(class="label add-letters") }} {{ form.multiple_ans_graph(class="input", placeholder="Text...") }}
+            {% endfor %}
         </div>
-        {{ form.difficulty.label(class="label") }} {{ form.difficulty(class="input") }}
-        {{ form.tags.label(class="label") }} {{ form.tags(class="input") }}
-        {{ form.submit(class="button is-link") }}
-    </form>
-</div>
+    </div>
+    {{ form.difficulty.label(class="label") }} {{ form.difficulty(class="input radios radios-vertical") }}
+    {{ form.tags.label(class="label") }} {{ form.tags(class="input") }}
+    {{ form.submit(class="form-highlight-button") }}
+</form>
 
 <script>
     const typeSelector = document.getElementById("type-selector");
@@ -44,12 +50,12 @@
     const typeMultiple = document.getElementById("type-multiple");
     typeSelector.addEventListener("change", () => {
         if (typeSelector.value === "field") {
-            typeField.style = "display: block";
+            typeField.style = "display: flex; flex-direction: column;";
             typeMultiple.style = "display: none";
         }
         else if (typeSelector.value === "multiple") {
             typeField.style = "display: none";
-            typeMultiple.style = "display: block";
+            typeMultiple.style = "display: flex; flex-direction: column;";
         }
     });
     const multipleTypeSelector = document.getElementById("multiple-type-selector");
@@ -58,19 +64,19 @@
     const multipleTypeImage = document.getElementById("multiple-image");
     multipleTypeSelector.addEventListener("change", () => {
         if (multipleTypeSelector.value === "field") {
-            multipleTypeField.style = "display: block";
+            multipleTypeField.style = "display: flex; flex-direction: column;";
             multipleTypeGraph.style = "display: none";
             multipleTypeImage.style = "display: none";
         }
         else if (multipleTypeSelector.value === "graph") {
             multipleTypeField.style = "display: none";
-            multipleTypeGraph.style = "display: block";
+            multipleTypeGraph.style = "display: flex; flex-direction: column;";
             multipleTypeImage.style = "display: none";
         }
         else if (multipleTypeSelector.value === "image") {
             multipleTypeField.style = "display: none";
             multipleTypeGraph.style = "display: none";
-            multipleTypeImage.style = "display: block";
+            multipleTypeImage.style = "display: flex; flex-direction: column;";
         }
     });
 </script>

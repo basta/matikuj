@@ -18,16 +18,12 @@
     <!-- START NAV -->
     <nav class="navbar">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{{ url_for('index') }}">
-                <!-- <img src="{{ url_for('static', filename='images/bulma.png') }}" alt="Logo"> -->
+            <a class="" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/matikuj-logo.png') }}" alt="Logo">
+                <img src="{{ url_for('static', filename='images/matikuj-logo-text.png') }}" alt="Logo">
             </a>
         </div>
         <div class="navbar-links">
-            <div class="navbar-burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
             <div class="navbar-links-inner">
                 <a href="{{ url_for('index') }}" class="navbar-item is-active">
                     Domů
@@ -38,9 +34,16 @@
                 <a href="{{ url_for('session_create') }}" class="navbar-item">
                     Kvíz
                 </a>
-                <a href="{{ url_for('login') }}" class="navbar-item navbar-button">
-                    Přihlásit se
-                </a>
+            </div>
+            <a href="{{ url_for('login') }}" class="navbar-item">
+                Přihlásit se
+            </a>
+            <div class="navbar-burger">
+                <div id="navbar-burger-inner" class="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
@@ -60,6 +63,17 @@
         </div>
     </footer>
 
+
+    <script>
+        burgerButton = document.getElementById("navbar-burger-inner");
+        navLinksInner = document.querySelector(".navbar-links-inner");
+        console.log(navLinksInner)
+        burgerButton.addEventListener("click", () => {
+            var toggle = burgerButton.classList.toggle("navbar-burger-open");
+            if (!toggle) {navLinksInner.style = "transform: translateX(100%);"}
+            else {navLinksInner.style = "transform: translateX(0%);"}
+        })
+    </script>
 </body>
 
 </html>

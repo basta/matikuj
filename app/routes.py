@@ -7,6 +7,7 @@ from .create_question import CreateQuestionForm
 from .models import Problem
 from .classes_basta import *
 from .create_question import CreateQuestionForm
+from .solve_question import SolveQuestionForm
 
 from typing import List, Dict
 
@@ -36,6 +37,15 @@ def teacher():
 @app.route('/sample_problem')
 def sample_problem():
     return render_template('sample_problem.html')
+
+
+@app.route('/answer-question', methods=['GET', 'POST'])
+def solve_question():
+    form = SolveQuestionForm()
+    if form.validate_on_submit():
+            return redirect('index')
+    print(request.form)
+    return render_template('solve-question.html', form=form)
 
 
 @app.route('/create-question', methods=['GET', 'POST'])

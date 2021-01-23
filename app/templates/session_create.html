@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Vložte ID</h1>
-<form method="POST"><div class="id-input">{{form.text.label}} {{form.text}} {{form.join}} {{form.create}}</div></form>
+<h2>Připojit se ke kvízu</h2>
+<form method="POST">
+    {{form.text.label}} {{form.text}}
+    <div class="buttons">
+        {{form.join(class="form-highlight-button")}} {{form.create(class="form-subtle-button")}}
+    </div>
+</form>
 {% endblock %}
