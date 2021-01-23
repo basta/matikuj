@@ -7,7 +7,7 @@ from .models import Problem, Quiz
 from .create_question import CreateQuestionForm
 from .basta import *
 from .create_question import CreateQuestionForm
-from .solve_question import SolveQuestionForm
+from .solve_question import SolveQuestionForm, HardcodedGraphQuestion
 
 from typing import List, Dict
 
@@ -52,6 +52,15 @@ def solve_question():
             return redirect('index')
     print(request.form)
     return render_template('solve-question.html', form=form)
+
+
+@app.route('/answer-question/2', methods=['GET', 'POST'])
+def hardcoded_graph_question():
+    form = HardcodedGraphQuestion()
+    if form.validate_on_submit():
+        return redirect('index')
+    print(request.form)
+    return render_template('hardcoded-graph-question.html', form=form)
 
 
 @app.route('/create-question', methods=['GET', 'POST'])
