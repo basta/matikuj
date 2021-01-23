@@ -37,6 +37,9 @@
                     });
               label.innerText = '';
             }
+            document.querySelector('#options-1').addEventListener('click', () => {
+                    Array.from(document.querySelectorAll('#options > li'))[1].style = 'background-color: #6f4;'
+                  })
               </script>
 
 {% endblock %}
