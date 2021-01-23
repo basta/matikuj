@@ -10,28 +10,32 @@
         display: flex;
         flex-direction: column;
     }
-    .separator {
-        height: 2em;
+    .math-field, .graph-formula {
+        width: 100%;
+        /* margin-bottom: 3px; */
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Use Flask-WTF to generate form fields -->
-<div class="container">
-    <form method="POST">
-        <!-- part 0 - task -->
+<h2>Tvorba otázky</h2>
+<form method="POST">
         {{ form.hidden_tag() }}
-        {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text...") }}
-        <span class="math-field" id="task-math"></span>
+        <!-- part 0 - task -->
+        {{ form.body.label(class="label") }} {{ form.body(class="input", placeholder="Text úlohy...") }}
+        <label>Matematické formátování</label> <span class="math-field" id="task-math"></span>
         {{ form.image64.label(class="label") }} {{form.image64}}
-        <div class="separator"></div>
+
+        <div class="separator-big"></div>
+
         {{ form.typ.label(class="label") }} {{ form.typ(id="type-selector", class="input") }}
         <div id="type-field" style="display: none;">
             {{ form.result_field.label(class="label") }} {{ form.result_field(class="input", placeholder="Text...") }}
         </div>
         <div id="type-multiple" class="flex-column" style="display: none;">
             {{ form.multiple_ans_type.label(class="label") }} {{ form.multiple_ans_type(id="multiple-type-selector", class="input") }}
+            <div class="separator-small"></div>
             <div id="multiple-image" style="display: none;">
                 {% for letter in ["A", "B", "C", "D"] %}
                     {{ form.multiple_ans_img.label(class="label add-letters") }} {{ form.multiple_ans_img(class="input", placeholder="Text...") }}
@@ -57,10 +61,16 @@
                 {% endfor %}
             </div>
         </div>
+
+        <div class="separator-big"></div>
+
+        {{ form.difficulty.label(class="label") }} {{ form.difficulty(class="input radios radios-vertical") }}
+        {{ form.tags.label(class="label") }} {{ form.tags(class="input") }}
+        
+        <div class="separator-small"></div>
+
+        {{ form.submit(class="form-highlight-button") }}
     </div>
-    {{ form.difficulty.label(class="label") }} {{ form.difficulty(class="input radios radios-vertical") }}
-    {{ form.tags.label(class="label") }} {{ form.tags(class="input") }}
-    {{ form.submit(class="form-highlight-button") }}
 </form>
 
 <script>
