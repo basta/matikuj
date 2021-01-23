@@ -52,6 +52,17 @@
     font-size: 16pt;
     font-weight: 900;
   }
+  .search-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #question-search {
+    margin-left: 3px;
+  }
+  .hidden {
+    display: none;
+}
 </style>
 {% endblock %}
 
@@ -62,6 +73,14 @@
     <div id="available-questions">
       <div>
         <h3>Dostupné otázky</h3>
+        <div class="search-bar">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <circle cx="10" cy="10" r="7" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+          </svg>
+          <input type="text" id="question-search" placeholder="Hledat podle textu nebo tagů">
+        </div>
         <p>
           Použijte nějakou z již vytvořených otázek a nebo si <a href="{{ url_for('create_question') }}" class="inpage-link">vytvořte vlastní</a>
         </p>
@@ -95,23 +114,40 @@
       [8, { text: 'Vyslovte implikaci obrácenou a obměněnou k výroku \"Pokud je 5 racionální číslo, pak druhá mocnina 5 je 25\"', difficulty: 5, tags: ["diferenciílní počty", ""] }],
       [9, { text: 'Kolik trojciferných čísel lze vytvořit z číslic 0, 1, 2, 3, 5 a 7?', difficulty: 3, tags: ["kombinatorika"] }],
     ]);
-    const availableQuestions = document.querySelector('#available-questions');
-    const usedQuestions = document.querySelector('#used-questions');
-    questions.forEach((question, questionId) => availableQuestions.innerHTML +=
-      `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
-    )
-    const addQuestion = questionId => {
-      const question = questions.get(questionId);
-      document.querySelector(`#question-${questionId}`).remove();
-      usedQuestions.innerHTML +=
-        `<used-question id="question-${questionId}">${question.text} <button class="remove-button" onclick="removeQuestion(${questionId})">-</button></available-question>`
-    }
-    const removeQuestion = questionId => {
-      const question = questions.get(questionId);
-      document.querySelector(`#question-${questionId}`).remove();
-      availableQuestions.innerHTML +=
-        `<available-question id="question-${questionId}">${question.text} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
-    }
+        const renderQuestion = question => `
+        ${question.text}
+          <br />
+          Obtížnost: ${question.difficulty}
+          <br />
+          Tagy: ${question.tags}
+        `
+   const availableQuestions = document.querySelector('#available-questions');
+   const usedQuestions = document.querySelector('#used-questions');
+   questions.forEach((question, questionId) => availableQuestions.innerHTML +=
+   `<available-question id="question-${questionId}">${renderQuestion(question)} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
+   )
+   const addQuestion = questionId => {
+   const question = questions.get(questionId);
+   document.querySelector(`#question-${questionId}`).remove();
+   usedQuestions.innerHTML +=
+   `<used-question id="question-${questionId}">${renderQuestion(question)} <button class="remove-button" onclick="removeQuestion(${questionId})">-</button></available-question>`
+   }
+   const removeQuestion = questionId => {
+   const question = questions.get(questionId);
+   document.querySelector(`#question-${questionId}`).remove();
+   availableQuestions.innerHTML +=
+   `<available-question id="question-${questionId}">${renderQuestion(question)} <button class="add-button" onclick="addQuestion(${questionId})">+</button></available-question>`
+   }
+   const questionSearch = document.querySelector('#question-search');
+   questionSearch.addEventListener('input', () => {
+   for (const questionElement of document.querySelectorAll('available-question')) {
+   if (questionElement.innerText.toLowerCase().includes(questionSearch.value.toLowerCase())) {
+   questionElement.classList.remove('hidden');
+   } else {
+   questionElement.classList.add('hidden');
+   }
+   }
+   })
   </script>
   <div>
 {% endblock %}
