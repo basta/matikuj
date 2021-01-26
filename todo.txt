@@ -1,3 +1,3 @@
 V tomto souboru nechť je psáno, kdo na čem pracuje, ať neděláme všichni totéž:
 
-Sláďa: Vylepšení formuláře na vytváření úloh, aby umožňoval nápovědy a řešení. Také zkusit zajistit, aby učitel věděl, co se děje.
+Sláďa: Přidávání stránky se zobrazením úkolů, jejich tahání z databáze.
